@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GRADUS II · MODUS ELECTIONIS</title>
+<meta name="description" content="Режим выбора финансирования. Ты не покупаешь. Мы не продаём. Ты выбираешь, какое будущее финансируешь.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23060A06'/%3E%3Crect x='4' y='4' width='24' height='24' fill='none' stroke='%232ECC40' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%232ECC40'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="gradus">
+
+<div id="boot" style="background:#060A06;" data-lines='["TERMINAL ACCESS: <b>GRADUS II</b>","AUTH: <b>NON REQUIRITUR</b>","MODUS: <b>ELECTIO FINANTIAE</b>","ORDO: <b>NULLUS</b> — ОЧЕРЕДЬ ОТКЛЮЧЕНА","<b>SALVE, СОАВТОР.</b>"]'><pre style="color:#DCE7DC;"></pre></div>
+<div id="wipe"></div>
+<div class="scanlines"></div>
+
+<header class="topbar">
+  <span><span class="dot"></span>GRADUS II · TERMINAL</span>
+  <span>SESSIO: MMXXVI</span>
+  <a class="go2" href="index.html" data-wipe data-cur="Reverti">← REVERTI</a>
+</header>
+
+<section class="g2-hero">
+  <p class="kicker rv">MODUS ELECTIONIS · NON MERCATUS</p>
+  <h1 class="rv">ГРАДУС <em>II</em></h1>
+  <p class="lead rv">Ты не покупаешь. Мы не продаём. Ты выбираешь, <b>какое будущее финансируешь</b>. Разница принципиальная — спроси любого, кто покупал будущее в кредит.</p>
+</section>
+
+<!-- STEP 01: направление -->
+<section class="g2sec">
+  <p class="steplbl rv">STEP 01 · QUO — НАПРАВЛЕНИЕ</p>
+  <div class="dir-grid">
+    <button class="dir rv" data-name="VITA AETERNA" data-hover data-cur="Vive">
+      <small>PROCEDURA PRIMA</small>
+      <h3>VITA AETERNA</h3>
+      <p>Бессмертие. Скучно не будет: вечность — это очень много понедельников, и впервые в истории все они твои.</p>
+    </button>
+    <button class="dir rv" data-name="NAVIS GENERATIONUM" data-hover data-cur="Vola">
+      <small>PROCEDURA SECUNDA</small>
+      <h3>NAVIS GENERATIONUM</h3>
+      <p>Корабль поколений. Билет туда, где правнуки скажут тебе спасибо. Лично. Потому что ты долетишь вместе с ними.</p>
+    </button>
+    <button class="dir rv" data-name="VIA INTEGRALIS" data-hover data-cur="Omnia">
+      <small>PROCEDURA TERTIA · SUADEMUS</small>
+      <h3>VIA INTEGRALIS</h3>
+      <p>Всё сразу: жить вечно и лететь. Кто-то назовёт это жадностью. Мы называем дальновидностью.</p>
+    </button>
+  </div>
+</section>
+
+<!-- STEP 02: вклад -->
+<section class="g2sec">
+  <p class="steplbl rv">STEP 02 · QUANTUM — ВКЛАД</p>
+  <div class="tier-row">
+    <button class="tier rv" data-name="$1 · SIGNUM" data-hover data-cur="Sine ordine">
+      <span class="sum">$1</span><span class="nm">SIGNUM</span>
+      <p>Не цена. Способ не ждать инвайт. Очередь — для магазинов.</p>
+    </button>
+    <button class="tier rv" data-name="$10 · NUMERUS" data-hover data-cur="Nomen">
+      <span class="sum">$10</span><span class="nm">NUMERUS</span>
+      <p>Твоё имя в списке соавторов. Шрифт мелкий, зато вечный.</p>
+    </button>
+    <button class="tier rv" data-name="$100 · INSTRUMENTUM" data-hover data-cur="Signum II">
+      <span class="sum">$100</span><span class="nm">INSTRUMENTUM</span>
+      <p>Значок II класса. Люди начнут спрашивать. Отвечать не обязательно.</p>
+    </button>
+    <button class="tier rv" data-name="$1 000 · ARCHITECTUS" data-hover data-cur="Signum I">
+      <span class="sum">$1 000</span><span class="nm">ARCHITECTUS</span>
+      <p>Значок I класса и право молчать со значением.</p>
+    </button>
+    <button class="tier rv" data-name="$1 000 000 · SINE NOMINE" data-hover data-cur="Silentium">
+      <span class="sum">$1M</span><span class="nm">SINE NOMINE</span>
+      <p>Уровень, о котором вслух не говорят. Даже мы. Особенно мы.</p>
+    </button>
+  </div>
+  <p class="rings rv">Значки — для тех, кто уже вошёл. <b>Выше значков есть кольца</b>: их носят соавторы такого порядка, что о них не говорят вслух. Как выглядит кольцо, не знает никто. Возможно, в этом и смысл кольца.</p>
+</section>
+
+<!-- SUMMARY HUD -->
+<div class="hudpanel">
+  <div class="f">DIRECTIO<b id="fDir">—</b></div>
+  <div class="f">SUMMA<b id="fSum">—</b></div>
+  <div class="f">INVITATIO<b id="fInv">ЖДИ ИНВАЙТ</b></div>
+  <button class="btn solid" id="goBtn" disabled data-cur="Procede">INITIARE PROCEDURAM</button>
+</div>
+
+<section class="g2sec" style="padding-bottom:120px;">
+  <p class="lead rv" style="color:#93A493;font-size:14px;">Концепт-страница получения входа. Деньги не списываются: пока что мы щедрее банков. Узел оплаты активируется вручную — INCEPTOR PRIMARIS проверяет каждую подпись лично. Ему всё равно некуда спешить: у него вечность.</p>
+</section>
+
+<footer style="border-color:#1E2C1E;">
+  <span>GAUSSE HOLLER CUSTOM LAB · <span class="g">VER. ∞.0</span> · MMXXVI</span>
+  <span>GRADUS II · MODUS ELECTIONIS</span>
+  <span>MORS <span class="g">OPTIONALIS</span></span>
+</footer>
+
+<!-- MODAL -->
+<div id="modal">
+  <div class="box">
+    <pre></pre>
+    <p class="fine">Это концепт. Ничего не списано, никто не подписан, все свободны — редкое предложение на современном рынке.</p>
+    <button class="btn x" style="color:#fff;" data-cur="Finis">ЗАКРЫТЬ КАНАЛ</button>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
