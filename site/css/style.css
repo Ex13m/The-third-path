@@ -257,6 +257,24 @@ body.js .rv.in{opacity:1;transform:none;}
   font:700 9px/1 'JBMono',monospace;letter-spacing:.2em;padding:7px 10px;text-transform:uppercase;z-index:2;
 }
 
+/* transmissions */
+.tv-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:44px;}
+@media(max-width:820px){.tv-grid{grid-template-columns:1fr;}}
+.tv{border:var(--hud);margin:0;background:var(--paper);position:relative;overflow:hidden;}
+.tv::before{
+  content:'● REC';position:absolute;top:12px;right:14px;z-index:2;
+  font:700 9px/1 'JBMono',monospace;letter-spacing:.2em;color:var(--green);
+  animation:blink 1.6s steps(2) infinite;
+}
+.tv video{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#0B0F0B;}
+.tv figcaption{
+  padding:14px 16px 16px;font:400 13.5px/1.5 'Oxanium',sans-serif;color:#242a24;
+  border-top:var(--hud);
+}
+.tv figcaption b{
+  display:block;font:700 10px/1 'JBMono',monospace;letter-spacing:.22em;color:var(--green-dim);
+  margin-bottom:8px;text-transform:uppercase;
+}
 /* counter */
 .counter-wrap{background:var(--ink);color:#fff;max-width:none;padding:110px 22px;}
 .counter-in{max-width:1180px;margin:0 auto;text-align:center;}

@@ -102,6 +102,24 @@
     if (src) src.addEventListener('error', function () { vid.remove(); });
   }
 
+  /* ── transmissions: play in view, pause out of view ── */
+  var tvs = document.querySelectorAll('.tv video');
+  if (tvs.length) {
+    var vio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { v.play().catch(function () {}); }
+        else { v.pause(); }
+      });
+    }, { threshold: 0.25 });
+    tvs.forEach(function (v) {
+      v.addEventListener('error', function () {
+        var f = v.closest('.tv'); if (f) f.style.display = 'none';
+      });
+      vio.observe(v);
+    });
+  }
+
   /* ── GRADUS II: triangle allocation + tier logic ── */
   var triSvg = document.getElementById('triSvg');
   var tiers = document.querySelectorAll('.tier');
@@ -187,7 +205,7 @@
     });
 
     function paint() {
-      fDir.textContent = 'V' + state.v + ' · A' + state.a + ' · N' + state.n + ' · +10';
+      fDir.textContent = 'V' + state.v + ' · A' + state.a + ' · T' + state.n + ' · +10';
       fSum.textContent = state.tier || '—';
       if (state.tier) { fInv.textContent = 'NON REQUIRITUR'; fInv.classList.add('g'); }
       else { fInv.textContent = 'ЖДИ ИНВАЙТ'; fInv.classList.remove('g'); }
@@ -204,8 +222,8 @@
     goBtn.addEventListener('click', function () {
       modal.classList.add('open');
       var txt = '> ЗАЯВКА ПРИНЯТА\n' +
-        '> РАСПРЕДЕЛЕНИЕ: VITA ' + state.v + '% · AUGMENTATIO ' + state.a + '% · AQUA NIGRA ' + state.n + '%\n' +
-        '> SCRIPTORIUM: 10% — КАК ВСЕГДА. КАК ВЕЗДЕ. КАК ВСЁ.\n' +
+        '> РАСПРЕДЕЛЕНИЕ: VITA ' + state.v + '% · AUGMENTATIO ' + state.a + '% · VIA TERTIA ' + state.n + '%\n' +
+        '> DIRECTORIUM: 10% — ОБОРОНА, АДМИНИСТРАЦИЯ, ЮРИСТЫ. КАК ВСЕГДА. КАК ВЕЗДЕ.\n' +
         '> ВКЛАД: ' + state.tier + '\n' +
         '> ПРОТОКОЛ GRADUS II: ЗАПУЩЕН\n' +
         '> УЗЕЛ ОПЛАТЫ: АКТИВИРУЕТСЯ ВРУЧНУЮ — INCEPTOR PRIMARIS\n' +
