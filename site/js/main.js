@@ -223,7 +223,7 @@
       modal.classList.add('open');
       var txt = '> ЗАЯВКА ПРИНЯТА\n' +
         '> РАСПРЕДЕЛЕНИЕ: VITA ' + state.v + '% · AUGMENTATIO ' + state.a + '% · VIA TERTIA ' + state.n + '%\n' +
-        '> DIRECTORIUM: 10% — ОБОРОНА, АДМИНИСТРАЦИЯ, ЮРИСТЫ. КАК ВСЕГДА. КАК ВЕЗДЕ.\n' +
+        '> DIRECTORIUM: 10% — СТРАЖА, АДМИНИСТРАЦИЯ, МЕЛКИЙ ШРИФТ. КАК ВСЕГДА. КАК ВЕЗДЕ.\n' +
         '> ВКЛАД: ' + state.tier + '\n' +
         '> ПРОТОКОЛ GRADUS II: ЗАПУЩЕН\n' +
         '> УЗЕЛ ОПЛАТЫ: АКТИВИРУЕТСЯ ВРУЧНУЮ — INCEPTOR PRIMARIS\n' +
