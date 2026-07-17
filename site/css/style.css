@@ -362,6 +362,44 @@ body.gradus .topbar .go2:hover{color:#060A06;}
   font:400 13.5px/1.6 'Oxanium',sans-serif;color:#93A493;max-width:720px;
 }
 .rings b{color:#fff;}
+/* allocation triangle */
+.alloc{display:grid;grid-template-columns:minmax(300px,480px) 1fr;gap:34px;align-items:start;}
+@media(max-width:960px){.alloc{grid-template-columns:1fr;}}
+.tri-wrap{border:1px solid #1E2C1E;background:#0A120A;padding:18px;}
+#triSvg{width:100%;height:auto;display:block;touch-action:none;}
+.tri-outer{fill:rgba(46,204,64,.04);stroke:var(--green);stroke-width:1.5;}
+.tri-grid{fill:none;stroke:#1E2C1E;stroke-width:1;stroke-dasharray:4 5;}
+.tri-ray{stroke:rgba(46,204,64,.4);stroke-width:1;stroke-dasharray:2 4;}
+.tri-lbl{fill:#93A493;font:600 11px 'JBMono',monospace;letter-spacing:.14em;}
+#triNode{fill:rgba(46,204,64,.22);stroke:var(--green);stroke-width:1.5;cursor:grab;}
+#triNodeCore{fill:var(--green);pointer-events:none;}
+.tri-wrap.grabbing #triNode{cursor:grabbing;}
+.presets{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.pre-chip{
+  font:600 9px/1 'JBMono',monospace;letter-spacing:.16em;text-transform:uppercase;
+  border:1px solid #2c3f2c;background:transparent;color:#ADBBAD;padding:9px 11px;
+  transition:border-color .2s,color .2s;
+}
+.pre-chip:hover{border-color:var(--green);color:#fff;}
+.alloc-side{display:flex;flex-direction:column;gap:18px;}
+.alloc-row{border:1px solid #1E2C1E;background:#0A120A;padding:16px 18px;transition:border-color .3s;}
+.alloc-row.hot{border-color:#395439;}
+.ar-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;}
+.ar-name{font:700 12px/1.2 'Unbounded',sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.02em;}
+.ar-pct{font:800 20px/1 'Unbounded',sans-serif;color:var(--green);font-variant-numeric:tabular-nums;}
+.ar-bar{height:5px;background:#13200f;margin-bottom:10px;overflow:hidden;}
+.ar-bar i{display:block;height:100%;background:var(--green);box-shadow:0 0 10px rgba(46,204,64,.6);
+  transition:width .18s ease-out;}
+.alloc-row p{font:400 12.5px/1.55 'Oxanium',sans-serif;color:#ADBBAD;}
+.alloc-lock{
+  border:1px dashed #2c3f2c;padding:14px 16px;display:flex;gap:14px;align-items:flex-start;
+  font:400 12.5px/1.6 'Oxanium',sans-serif;color:#93A493;
+}
+.alloc-lock b{color:#fff;}
+.al-badge{
+  flex:none;border:1px solid var(--green);color:var(--green);
+  font:700 9px/1 'JBMono',monospace;letter-spacing:.18em;padding:7px 9px;white-space:nowrap;
+}
 /* summary hud */
 .hudpanel{
   position:sticky;bottom:18px;z-index:850;max-width:1136px;margin:40px auto 0;

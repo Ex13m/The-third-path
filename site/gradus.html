@@ -26,25 +26,54 @@
   <p class="lead rv">Ты не покупаешь. Мы не продаём. Ты выбираешь, <b>какое будущее финансируешь</b>. Разница принципиальная — спроси любого, кто покупал будущее в кредит.</p>
 </section>
 
-<!-- STEP 01: направление -->
+<!-- STEP 01: распределение -->
 <section class="g2sec">
-  <p class="steplbl rv">STEP 01 · QUO — НАПРАВЛЕНИЕ</p>
-  <div class="dir-grid">
-    <button class="dir rv" data-name="VITA AETERNA" data-hover data-cur="Vive">
-      <small>PROCEDURA PRIMA</small>
-      <h3>VITA AETERNA</h3>
-      <p>Бессмертие. Скучно не будет: вечность — это очень много понедельников, и впервые в истории все они твои.</p>
-    </button>
-    <button class="dir rv" data-name="NAVIS GENERATIONUM" data-hover data-cur="Vola">
-      <small>PROCEDURA SECUNDA</small>
-      <h3>NAVIS GENERATIONUM</h3>
-      <p>Корабль поколений. Билет туда, где правнуки скажут тебе спасибо. Лично. Потому что ты долетишь вместе с ними.</p>
-    </button>
-    <button class="dir rv" data-name="VIA INTEGRALIS" data-hover data-cur="Omnia">
-      <small>PROCEDURA TERTIA · SUADEMUS</small>
-      <h3>VIA INTEGRALIS</h3>
-      <p>Всё сразу: жить вечно и лететь. Кто-то назовёт это жадностью. Мы называем дальновидностью.</p>
-    </button>
+  <p class="steplbl rv">STEP 01 · QUO — РАСПРЕДЕЛЕНИЕ · TRIANGULUM ELECTIONIS</p>
+  <p class="lead rv" style="color:#93A493;font-size:14.5px;margin-bottom:26px;">Тяни узел внутри треугольника. Три направления делят 90% твоего вклада. Оставшиеся 10% не трогай — они уже заняты (см. ниже). Равновесие — трусость? Нет. Равновесие — это дефолт.</p>
+  <div class="alloc rv">
+    <div class="tri-wrap" data-hover data-cur="Trahe">
+      <svg id="triSvg" viewBox="0 0 480 430" aria-label="Манипулятор распределения">
+        <polygon class="tri-outer" points="240,36 36,390 444,390"/>
+        <polygon class="tri-grid" points="138,213 342,213 240,390"/>
+        <line class="tri-ray" id="rayV" x1="240" y1="36" x2="240" y2="253"/>
+        <line class="tri-ray" id="rayA" x1="36"  y1="390" x2="240" y2="253"/>
+        <line class="tri-ray" id="rayN" x1="444" y1="390" x2="240" y2="253"/>
+        <text class="tri-lbl" x="240" y="22" text-anchor="middle">VITA · БЕССМЕРТИЕ</text>
+        <text class="tri-lbl" x="36" y="414" text-anchor="start">AUGMENTATIO</text>
+        <text class="tri-lbl" x="444" y="414" text-anchor="end">AQUA NIGRA</text>
+        <circle id="triNode" cx="240" cy="253" r="11"/>
+        <circle id="triNodeCore" cx="240" cy="253" r="4"/>
+      </svg>
+      <div class="presets">
+        <button class="pre-chip" data-set="30,30,30" data-cur="Aequus">ДЕФОЛТ 30·30·30</button>
+        <button class="pre-chip" data-set="60,15,15" data-cur="Vive">ВЕЧНОСТЬ</button>
+        <button class="pre-chip" data-set="15,60,15" data-cur="Ferrum">ЖЕЛЕЗО</button>
+        <button class="pre-chip" data-set="15,15,60" data-cur="Silentium">ТИШИНА</button>
+      </div>
+    </div>
+    <div class="alloc-side">
+      <div class="alloc-row" id="rowV">
+        <div class="ar-head"><span class="ar-name">VITA AETERNA</span><span class="ar-pct" id="pV">30%</span></div>
+        <div class="ar-bar"><i id="bV" style="width:33.3%"></i></div>
+        <p>Бессмертие. Вечность — это очень много понедельников, и впервые все они твои.</p>
+      </div>
+      <div class="alloc-row" id="rowA">
+        <div class="ar-head"><span class="ar-name">AUGMENTATIO HUMANA</span><span class="ar-pct" id="pA">30%</span></div>
+        <div class="ar-bar"><i id="bA" style="width:33.3%"></i></div>
+        <p>Аугментация с человеческим лицом. Железо внутри, лицо прежнее. Раньше это называлось «очки». Мы просто продолжили мысль.</p>
+      </div>
+      <div class="alloc-row" id="rowN">
+        <div class="ar-head"><span class="ar-name">AQUA NIGRA · КОРПУС ЧЁРНОЙ СТРАЖИ</span><span class="ar-pct" id="pN">30%</span></div>
+        <div class="ar-bar"><i id="bN" style="width:33.3%"></i></div>
+        <p>Безопасность. Мы любим пострелять. Точнее — братья из корпуса любят. Мы любим тишину, которая наступает после.</p>
+      </div>
+      <div class="alloc-lock">
+        <span class="al-badge">10% · SEMPER</span>
+        <div>
+          <b>SCRIPTORIUM — администрация и юрзащита.</b> Не регулируется. Единственная константа во вселенной: юристы переживут даже нас. А мы, напомним, продаём бессмертие.
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -78,10 +107,10 @@
 
 <!-- SUMMARY HUD -->
 <div class="hudpanel">
-  <div class="f">DIRECTIO<b id="fDir">—</b></div>
+  <div class="f">DISTRIBUTIO<b id="fDir">V30 · A30 · N30 · +10</b></div>
   <div class="f">SUMMA<b id="fSum">—</b></div>
   <div class="f">INVITATIO<b id="fInv">ЖДИ ИНВАЙТ</b></div>
-  <button class="btn solid" id="goBtn" disabled data-cur="Procede">INITIARE PROCEDURAM</button>
+  <button class="btn solid" id="goBtn" disabled data-cur="Initia">INITIARE RITUM</button>
 </div>
 
 <section class="g2sec" style="padding-bottom:120px;">

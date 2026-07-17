@@ -102,28 +102,97 @@
     if (src) src.addEventListener('error', function () { vid.remove(); });
   }
 
-  /* ── GRADUS II selector logic ── */
-  var dirs = document.querySelectorAll('.dir');
+  /* ── GRADUS II: triangle allocation + tier logic ── */
+  var triSvg = document.getElementById('triSvg');
   var tiers = document.querySelectorAll('.tier');
-  if (dirs.length) {
-    var state = { dir: null, tier: null };
+  if (triSvg) {
+    var state = { v: 30, a: 30, n: 30, tier: null };
     var fDir = document.getElementById('fDir');
     var fSum = document.getElementById('fSum');
     var fInv = document.getElementById('fInv');
     var goBtn = document.getElementById('goBtn');
+    /* triangle vertices: V (top), A (bottom-left), N (bottom-right) */
+    var V = { x: 240, y: 36 }, A = { x: 36, y: 390 }, N = { x: 444, y: 390 };
+    var node = document.getElementById('triNode');
+    var core = document.getElementById('triNodeCore');
+    var rays = { V: document.getElementById('rayV'), A: document.getElementById('rayA'), N: document.getElementById('rayN') };
+    var rows = { V: document.getElementById('rowV'), A: document.getElementById('rowA'), N: document.getElementById('rowN') };
+
+    function roundTo90(w) { /* w: normalized weights summing to 1 → ints summing to 90 */
+      var raw = [w[0] * 90, w[1] * 90, w[2] * 90];
+      var fl = raw.map(Math.floor);
+      var rest = 90 - (fl[0] + fl[1] + fl[2]);
+      var order = [0, 1, 2].sort(function (i, j) { return (raw[j] - fl[j]) - (raw[i] - fl[i]); });
+      for (var k = 0; k < rest; k++) fl[order[k % 3]]++;
+      return fl;
+    }
+    function setNode(x, y) {
+      node.setAttribute('cx', x); node.setAttribute('cy', y);
+      core.setAttribute('cx', x); core.setAttribute('cy', y);
+      ['V', 'A', 'N'].forEach(function (k) { rays[k].setAttribute('x2', x); rays[k].setAttribute('y2', y); });
+    }
+    function applyWeights(wv, wa, wn) { /* normalized, sum 1 */
+      var r = roundTo90([wv, wa, wn]);
+      state.v = r[0]; state.a = r[1]; state.n = r[2];
+      document.getElementById('pV').textContent = state.v + '%';
+      document.getElementById('pA').textContent = state.a + '%';
+      document.getElementById('pN').textContent = state.n + '%';
+      document.getElementById('bV').style.width = (state.v / 90 * 100) + '%';
+      document.getElementById('bA').style.width = (state.a / 90 * 100) + '%';
+      document.getElementById('bN').style.width = (state.n / 90 * 100) + '%';
+      rows.V.classList.toggle('hot', state.v >= 45);
+      rows.A.classList.toggle('hot', state.a >= 45);
+      rows.N.classList.toggle('hot', state.n >= 45);
+      paint();
+    }
+    function fromPoint(px, py) {
+      var den = (A.y - N.y) * (V.x - N.x) + (N.x - A.x) * (V.y - N.y);
+      var wv = ((A.y - N.y) * (px - N.x) + (N.x - A.x) * (py - N.y)) / den;
+      var wa = ((N.y - V.y) * (px - N.x) + (V.x - N.x) * (py - N.y)) / den;
+      var wn = 1 - wv - wa;
+      wv = Math.max(0, wv); wa = Math.max(0, wa); wn = Math.max(0, wn);
+      var s = wv + wa + wn; wv /= s; wa /= s; wn /= s;
+      setNode(V.x * wv + A.x * wa + N.x * wn, V.y * wv + A.y * wa + N.y * wn);
+      applyWeights(wv, wa, wn);
+    }
+    function fromWeights(v90, a90, n90) {
+      var wv = v90 / 90, wa = a90 / 90, wn = n90 / 90;
+      setNode(V.x * wv + A.x * wa + N.x * wn, V.y * wv + A.y * wa + N.y * wn);
+      applyWeights(wv, wa, wn);
+    }
+    function svgPoint(e) {
+      var r = triSvg.getBoundingClientRect();
+      return { x: (e.clientX - r.left) * 480 / r.width, y: (e.clientY - r.top) * 430 / r.height };
+    }
+    var dragging = false;
+    triSvg.addEventListener('pointerdown', function (e) {
+      dragging = true; triSvg.setPointerCapture(e.pointerId);
+      triSvg.parentElement.classList.add('grabbing');
+      var p = svgPoint(e); fromPoint(p.x, p.y);
+    });
+    triSvg.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      var p = svgPoint(e); fromPoint(p.x, p.y);
+    });
+    ['pointerup', 'pointercancel'].forEach(function (ev) {
+      triSvg.addEventListener(ev, function () {
+        dragging = false; triSvg.parentElement.classList.remove('grabbing');
+      });
+    });
+    document.querySelectorAll('.pre-chip').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var s = b.getAttribute('data-set').split(',').map(Number);
+        fromWeights(s[0], s[1], s[2]);
+      });
+    });
+
     function paint() {
-      fDir.textContent = state.dir || '—';
+      fDir.textContent = 'V' + state.v + ' · A' + state.a + ' · N' + state.n + ' · +10';
       fSum.textContent = state.tier || '—';
       if (state.tier) { fInv.textContent = 'NON REQUIRITUR'; fInv.classList.add('g'); }
       else { fInv.textContent = 'ЖДИ ИНВАЙТ'; fInv.classList.remove('g'); }
-      if (state.dir && state.tier) goBtn.removeAttribute('disabled');
+      if (state.tier) goBtn.removeAttribute('disabled');
     }
-    dirs.forEach(function (d) {
-      d.addEventListener('click', function () {
-        dirs.forEach(function (x) { x.classList.remove('sel'); });
-        d.classList.add('sel'); state.dir = d.getAttribute('data-name'); paint();
-      });
-    });
     tiers.forEach(function (t) {
       t.addEventListener('click', function () {
         tiers.forEach(function (x) { x.classList.remove('sel'); });
@@ -135,7 +204,8 @@
     goBtn.addEventListener('click', function () {
       modal.classList.add('open');
       var txt = '> ЗАЯВКА ПРИНЯТА\n' +
-        '> НАПРАВЛЕНИЕ: ' + state.dir + '\n' +
+        '> РАСПРЕДЕЛЕНИЕ: VITA ' + state.v + '% · AUGMENTATIO ' + state.a + '% · AQUA NIGRA ' + state.n + '%\n' +
+        '> SCRIPTORIUM: 10% — КАК ВСЕГДА. КАК ВЕЗДЕ. КАК ВСЁ.\n' +
         '> ВКЛАД: ' + state.tier + '\n' +
         '> ПРОТОКОЛ GRADUS II: ЗАПУЩЕН\n' +
         '> УЗЕЛ ОПЛАТЫ: АКТИВИРУЕТСЯ ВРУЧНУЮ — INCEPTOR PRIMARIS\n' +
