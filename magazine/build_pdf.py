@@ -43,7 +43,7 @@ def img_b64(path):
     buf = io.BytesIO(); im.save(buf,'JPEG',quality=86)
     return 'data:image/jpeg;base64,'+base64.b64encode(buf.getvalue()).decode()
 
-QR_PROC = b64(os.path.join(BASE,'logo_qr_journal.png'),'image/png')
+QR_PROC = b64(os.path.join(BASE,'logo_qr_site.png'),'image/png')
 img = {n: img_b64(p if os.path.exists(p) else os.path.join(BASE,'_placeholder.png')) for n,p in SCENES.items()}
 
 TOTAL = 17
@@ -246,7 +246,7 @@ pages.append(f'''<section class="page">
   </div>
   <div class="gate"><img src="{img[17]}"></div>
   <div class="qr-slot" style="border:none;padding:0;background:none"><img src="{QR_PROC}" style="width:100%;height:100%;object-fit:contain"></div>
-  <div class="qr-cap">СКАНИРУЙ — И ПОЛУЧИШЬ ОТКЛИК.<br>НЕ ССЫЛКУ. <b>ОТКЛИК.</b><br>GAUSSE HOLLER CUSTOM LAB<br>SCAN · AGE · ASCENDE</div>
+  <div class="qr-cap">СКАНИРУЙ — КАНАЛ ОТКРОЕТСЯ.<br>ОЧЕРЕДЬ ОСТАНЕТСЯ СНАРУЖИ. <b>ВМЕСТЕ С ТОБОЙ ВЧЕРАШНИМ.</b><br>GAUSSE HOLLER CUSTOM LAB<br>SCAN · AGE · ASCENDE</div>
   <div class="txt tx-pay"><table class="ttx">{ptr}</table></div>
   <div class="pull">«Мы ничего не продаём. Мы совершаем процедуры. Разница в том, что процедуру не отменить задним числом.»</div>
   {hud_frame(11,'PARS X')}

@@ -81,6 +81,19 @@
     if (!reduced) setInterval(function () { v += Math.random() < 0.7 ? 1 : 3; render(); }, 2600);
   }
 
+  /* ── hero parallax ── */
+  var hero = document.querySelector('.hero');
+  var hudLayer = document.querySelector('.hud-layer');
+  if (hero && hudLayer && fine && !reduced) {
+    hero.addEventListener('mousemove', function (e) {
+      var r = hero.getBoundingClientRect();
+      var dx = (e.clientX - r.width / 2) / r.width;
+      var dy = (e.clientY - r.height / 2) / r.height;
+      hudLayer.style.transform = 'translate(' + (-dx * 30) + 'px,' + (-dy * 22) + 'px)';
+    });
+    hero.addEventListener('mouseleave', function () { hudLayer.style.transform = ''; });
+  }
+
   /* ── video fallback ── */
   var vid = document.querySelector('.hero video');
   if (vid) {
